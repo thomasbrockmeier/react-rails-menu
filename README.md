@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple react-rails app, which uses a React UI on top of a Rails API
 
-Things you may want to cover:
+gem 'react-rails' is used to run React on the Rails server
+gem 'responders' is used to generate a DRY API
 
-* Ruby version
 
-* System dependencies
+The API is defined in the two controller files in ./app/controllers/api/v1, and in routes.rb
 
-* Configuration
+The React view is loaded from the 'site#index' action, and corresponding view
 
-* Database creation
+The React components are located in app/assets/javascripts/components
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The components may communicate with the back end using AJAX requests to the API

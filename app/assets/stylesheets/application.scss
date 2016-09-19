@@ -1,0 +1,27 @@
+@import "materialize";
+
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #000;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+  align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+.item-price{
+  text-align: right;
+}
+
+.menu-body {
+  margin: auto;
+  width: 50vw;
+}
+
+.menu-category {
+  margin-bottom: 2.5vw;
+}

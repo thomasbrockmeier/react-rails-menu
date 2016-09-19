@@ -3,7 +3,7 @@ var App = React.createClass({
         return (
             <div>
                 <Header />
-                <Body />
+                <MenuBody />
             </div>
         )
     }

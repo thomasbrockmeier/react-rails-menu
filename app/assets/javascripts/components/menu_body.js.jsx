@@ -1,4 +1,4 @@
-var Body = React.createClass({
+var MenuBody = React.createClass({
   getInitialState() {
     return {
       menuCategories: []
@@ -11,6 +11,12 @@ var Body = React.createClass({
       '/api/v1/menu_categories.json',
       (r) => {  this.setState({ menuCategories: r })  }
     );
+  },
+
+  addCategory(category) {
+    var menuCategories = React.addons.update(this.state.menuCategories,
+      { $push: [category] });
+    this.setState({ menuCategories: menuCategories });
   },
 
   render(){
@@ -27,7 +33,9 @@ var Body = React.createClass({
 
     return(
       <div className='menu menu-body'>
+        <h1>MENU</h1>
         { menuCategories }
+        <CategoryForm handleNewCategory={this.addCategory} />
       </div>
     )
   }

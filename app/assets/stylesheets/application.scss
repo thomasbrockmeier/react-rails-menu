@@ -4,13 +4,23 @@ $font-stack:    Helvetica, sans-serif;
 $primary-color: #000;
 
 body {
-  font: 100% $font-stack;
   color: $primary-color;
-  align: center;
+  font: 100% $font-stack;
+  margin: 0px;
+  padding: 0 0 0 0px;
 }
 
 h1 {
   text-align: center;
+}
+
+.header {
+  background: #000;
+  .header-left {
+    color: #FFF;
+    margin-left: 2.5vw;
+    text-align: center;
+  }
 }
 
 .item-price{

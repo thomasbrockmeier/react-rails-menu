@@ -20,7 +20,7 @@ class Api::V1::MenuCategoriesController < Api::V1::BaseController
 
   private
 
-  def item_params
-    params.require(:menu_category).permit(:id, :name)
+  def menu_category_params
+    params.require(:menu_category).permit(:name, :menu_items)
   end
 end

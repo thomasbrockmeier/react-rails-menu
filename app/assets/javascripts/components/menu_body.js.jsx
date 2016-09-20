@@ -3,7 +3,6 @@ var MenuBody = React.createClass({
     return {
       menuCategories: []
     }
-
   },
 
   componentDidMount() {
@@ -18,6 +17,7 @@ var MenuBody = React.createClass({
       { $push: [category] });
     this.setState({ menuCategories: menuCategories });
   },
+
   deleteCategory(category) {
     var menuCategories = this.state.menuCategories.slice();
     menuCategories.splice(menuCategories.indexOf(category), 1);
@@ -26,24 +26,32 @@ var MenuBody = React.createClass({
     });
   },
 
-  render(){
-    var menuCategories = this.state.menuCategories.map((menuCategory) => {
-      return(
-        <div key={ `category-${ menuCategory.id }` }
-             className='menu menu-category'>
-
-          <MenuCategory name={ menuCategory.name }
-                        menuItems={ menuCategory.menu_items }
-                        id={ menuCategory.id }
-                        handleDeleteCategory={ this.deleteCategory }/>
-        </div>
-      )
+  updateCategory(category, data) {
+    var index = this.state.menuCategories.indexOf(category);
+    var menuCategories = React.addons.update(this.state.menuCategories,
+      { $splice: [[index, 1, category]] });
+      console.log(category);
+      console.log(data);
+    this.replaceState({
+      menuCategories: menuCategories
     });
+  },
 
+  render(){
     return(
       <div className='menu menu-body'>
         <h1>MENU</h1>
-        { menuCategories }
+        { this.state.menuCategories.map((menuCategory) => {
+          console.log(menuCategory.id);
+          return(
+            <MenuCategory name={ menuCategory.name }
+                          key={ menuCategory.id }
+                          menuCategory={ menuCategory }
+                          menuItems={ menuCategory.menu_items }
+                          handleDeleteCategory={ this.deleteCategory }
+                          handleEditCategory={ this.updateCategory }/>
+          )
+        })}
         <CategoryForm handleNewCategory={this.addCategory} />
       </div>
     )

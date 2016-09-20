@@ -7,8 +7,14 @@ var MenuCategory = React.createClass({
 
   getInitialState() {
     return {
+      addingItem : false,
       edit: false
     }
+  },
+
+  handleAddItem(e) {
+    e.preventDefault();
+    this.setState({ addingItem: true });
   },
 
   handleDelete(e) {
@@ -44,6 +50,11 @@ var MenuCategory = React.createClass({
     this.setState({edit: !this.state.edit});
   },
 
+  newItem(category, data) {
+    this.props.handleNewItem(category, data);
+    this.setState({addingItem: false})
+  },
+
   renderedCategory() {
     if (this.state.edit) {
       return this.categoryForm();
@@ -52,64 +63,58 @@ var MenuCategory = React.createClass({
     }
   },
 
+  renderedForm() {
+    if (this.state.addingItem) {
+      return (<ItemForm menuCategory={ this.props.menuCategory }
+                        handleNewItem={ this.newItem } />);
+    }
+  },
+
   categoryRow() {
     return(
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th className='item-name'>
-                { this.props.name }
-                <button className='btn btn-flat edit'
-                  onClick={ this.handleToggle }>
-                  Edit
-                </button>
-                <button className='btn btn-flat delete'
-                        onClick={ this.handleDelete }>
-                        Delete
-                </button>
-              </th>
-              <th className='item-price'>Price</th>
-              <th className='options'></th>
-            </tr>
-          </thead>
-          <tbody>
-            { this.menuItems() }
-          </tbody>
-        </table>
-      </div>
+      <tr>
+        <th className='item-name'>
+          { this.props.name }
+          <button className='btn btn-flat add'
+            onClick={ this.handleAddItem }>
+            Add
+          </button>
+          <button className='btn btn-flat edit'
+            onClick={ this.handleToggle }>
+            Edit
+          </button>
+          <button className='btn btn-flat delete'
+                  onClick={ this.handleDelete }>
+                  Delete
+          </button>
+        </th>
+        <th className='item-price'>Price</th>
+        <th className='options'></th>
+      </tr>
     );
   },
 
   categoryForm() {
     return(
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th className='item-name'>
-                <input type='text'
-                       className='menu category-input'
-                       ref='name'
-                       defaultValue={ this.props.name } />
-                <button className='btn btn-flat edit'
-                  onClick={ this.handleEdit }>
-                  Update
-                </button>
-                <button className='btn btn-flat delete'
-                        onClick={ this.handleToggle }>
-                        Cancel
-                </button>
-              </th>
-              <th className='item-price'>Price</th>
-              <th className='options'></th>
-            </tr>
-          </thead>
-          <tbody>
-            { this.menuItems() }
-          </tbody>
-        </table>
-      </div>
+      <tr>
+        <th className='item-name'>
+          <input type='text'
+                 className='menu category-input'
+                 ref='name'
+                 defaultValue={ this.props.name } />
+          <button className='btn btn-flat edit'
+            onClick={ this.handleEdit }>
+            Update
+          </button>
+          <button className='btn btn-flat delete'
+                  onClick={ this.handleToggle }>
+                  Cancel
+          </button>
+        </th>
+        <th className='item-price'>
+          Price
+        </th>
+      </tr>
     );
   },
 
@@ -122,6 +127,18 @@ var MenuCategory = React.createClass({
   },
 
   render() {
-    return this.renderedCategory();
+    return (
+      <div>
+        <table>
+          <thead>
+            { this.renderedCategory() }
+          </thead>
+          <tbody>
+            { this.menuItems() }
+          </tbody>
+        </table>
+        { this.renderedForm() }
+      </div>
+    );
   }
 });

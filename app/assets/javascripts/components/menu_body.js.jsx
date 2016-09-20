@@ -26,12 +26,22 @@ var MenuBody = React.createClass({
     });
   },
 
+  newItem(category, data) {
+    var index = this.state.menuCategories.indexOf(category);
+    var newMenuCategory = React.addons.update(
+      this.state.menuCategories[index].menu_items, { $push: [data] }
+    );
+    var newState = this.state;
+    console.log(newState);
+    console.log(this.state);
+    newState.menuCategories[index].menu_items = newMenuCategory;
+    this.replaceState(newState);
+  },
+
   updateCategory(category, data) {
     var index = this.state.menuCategories.indexOf(category);
     var menuCategories = React.addons.update(this.state.menuCategories,
       { $splice: [[index, 1, category]] });
-      console.log(category);
-      console.log(data);
     this.replaceState({
       menuCategories: menuCategories
     });
@@ -42,17 +52,17 @@ var MenuBody = React.createClass({
       <div className='menu menu-body'>
         <h1>MENU</h1>
         { this.state.menuCategories.map((menuCategory) => {
-          console.log(menuCategory.id);
           return(
             <MenuCategory name={ menuCategory.name }
                           key={ menuCategory.id }
                           menuCategory={ menuCategory }
                           menuItems={ menuCategory.menu_items }
                           handleDeleteCategory={ this.deleteCategory }
-                          handleEditCategory={ this.updateCategory }/>
+                          handleEditCategory={ this.updateCategory }
+                          handleNewItem={ this.newItem }/>
           )
         })}
-        <CategoryForm handleNewCategory={this.addCategory} />
+        <CategoryForm handleNewCategory={ this.addCategory } />
       </div>
     )
   }

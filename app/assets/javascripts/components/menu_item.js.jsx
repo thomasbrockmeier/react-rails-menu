@@ -8,6 +8,7 @@ var MenuItem = React.createClass({
                 <td className='item-price'>
                   { formatPrice(this.props.menuItem.price) }
                 </td>
+                <th className='options'></th>
             </tr>
         )
     }

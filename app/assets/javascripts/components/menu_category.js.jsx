@@ -30,7 +30,7 @@ var MenuCategory = React.createClass({
               <tr>
                 <th className='item-name'>
                   { this.props.name }
-                  <button className='button button-delete'
+                  <button className='btn btn-flat delete'
                           onClick={ this.handleDelete }>Delete</button>
                 </th>
                 <th className='item-price'>Price</th>

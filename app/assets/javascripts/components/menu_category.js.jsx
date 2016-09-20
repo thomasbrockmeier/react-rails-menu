@@ -15,7 +15,7 @@ var MenuCategory = React.createClass({
     e.preventDefault();
     $.ajax({
         method: 'DELETE',
-        url: '/api/v1/menu_categories/' + this.props.id,
+        url: '/api/v1/menu_categories/' + this.props.menuCategory.id,
         dataType: 'JSON',
         success: function() {
           this.props.handleDeleteCategory(this.props.menuCategory);
